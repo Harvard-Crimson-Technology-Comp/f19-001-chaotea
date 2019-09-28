@@ -3,6 +3,7 @@ import graphene
 import project1.web.schema
 
 all_schemas = [
+    project1.api.schema,
     project1.web.schema
 ]
 

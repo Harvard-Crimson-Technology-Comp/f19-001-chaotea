@@ -1,25 +1,23 @@
-# Questions - no more than 3 sentences please
-
 Question 1. What is Django?
 
-# TODO
+Django is a web framework written in Python for the purpose of creating database-driven websites. It utilizes the MVC (Model-View-Controller) architecture and encourages reusability of code and rapid development.
 
 Question 2. What is GraphQL?
 
-# TODO
+"GraphQL is a query language for APIs and a runtime for fulfilling queries with existing data." It is a flexible approach to designing web APIs and considered an alternative/upgrade to the REST architecture.
 
 Question 3. How does Django "talk" to GraphQL?
 
-# TODO
+First of all, through Graphene, the Python implementation of GraphQL. For each Django model, there must exist a corresponding GraphQL type. Then, GraphQL handles the querying of the database.
 
 Question 4. Why do we use GraphQL + Django?
 
-# TODO
+We use GraphQL because it's a much more adaptable approach to querying the database compared to the REST approach. Being able to manipulate/access the database in a graph-like fashion is a major upgrade. We use Django because it is a very well-developed web framework that is fast, secure, and simple (arguably the most important).
 
 Question 5. What is a Web API?
 
-# TODO
+API stands for application programming interface, and an API is essentially a system for abstracting more complicated functions and processes into a standardized set of constructs. A web API is simply an API where communication between two ends of an application occur over the Internet.
 
 Question 6. What is a "backend"?
 
-# TODO
+The backend is essentially the database, whereas the frontend is the presentation of data to the user. In a client-server model, the server is considered the backend. The backend handles the accessing and processing of data, and that information gets relayed to the frontend.
