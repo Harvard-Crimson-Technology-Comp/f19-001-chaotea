@@ -1,42 +1,41 @@
+# TODO! You'll need to add the GraphQL schema for your project here!
+from graphene_django import DjangoObjectType
 import graphene
-from graphene_django.types import DjangoObjectType
-from project1.api.models import PurchaseModel, UserModel, PortfolioModel, StockModel
 
+from project1.api.models import UserModel, PortfolioModel, StockModel, PurchaseModel
 
-class PurchaseType(DjangoObjectType):
-    class Meta:
-        model = PurchaseModel
-
-
-class UserType(DjangoObjectType):
+class User(DjangoObjectType):
     class Meta:
         model = UserModel
 
-
-class PortfolioType(DjangoObjectType):
+class Portfolio(DjangoObjectType):
     class Meta:
         model = PortfolioModel
 
-
-class StockType(DjangoObjectType):
+class Stock(DjangoObjectType):
     class Meta:
         model = StockModel
 
+class Purchase(DjangoObjectType):
+    class Meta:
+        model = PurchaseModel
 
-class Query(object):
-    all_purchases = graphene.List(PurchaseType)
-    all_users = graphene.List(UserType)
-    all_portfolios = graphene.List(PortfolioType)
-    all_stocks = graphene.List(StockType)
+class Query(graphene.ObjectType):
+    users = graphene.List(User)
+    portfolios = graphene.List(Portfolio)
+    purchases = graphene.List(Purchase)
+    stocks = graphene.List(Stock)
 
-    def resolve_all_purchases(self, info, **kwargs):
-        return PurchaseModel.objects.select_related("user").all()
+    def resolve_users(self, info):
+        return UserModel.objects.all()
 
-    def resolve_all_users(self, info, **kwargs):
-        return UserModel.objects.select_related("portfolio").all()
-
-    def resolve_all_portfolios(self, info, **kwargs):
+    def resolve_portfolios(self, info):
         return PortfolioModel.objects.all()
 
-    def resolve_all_stocks(self, info, **kwargs):
-        return StockModel.objects.select_related("portfolio").all()
+    def resolve_purchases(self, info):
+        return PurchaseModel.objects.all()
+
+    def resolve_stocks(self, info):
+        return StockModel.objects.all()
+    
+
