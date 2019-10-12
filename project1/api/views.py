@@ -71,7 +71,7 @@ def buy(request):
     try:
         symbol, _ = ts.get_quote_endpoint(symbol=request.POST.get("symbol").upper())
     except ValueError:
-        return JsonResponse({"error": f"Symbol: {request.POST.get("symbol")} not found"})
+        return JsonResponse({"error": f"Symbol: {request.POST.get('symbol')} not found"})
 
     # Strip off AlphaVantage's annoying stuff:
     old_keys = [k for k in symbol]
@@ -139,7 +139,7 @@ def sell(request):
     try:
         symbol, _ = ts.get_quote_endpoint(symbol=request.POST.get("symbol").upper())
     except ValueError:
-        return JsonResponse({"error": f"Symbol: {request.POST.get("symbol")} not found"})
+        return JsonResponse({"error": f"Symbol: {request.POST.get('symbol')} not found"})
 
     # Strip off AlphaVantage's annoying stuff:
     old_keys = [k for k in symbol]
@@ -156,7 +156,7 @@ def sell(request):
         stock.quantity -= int(request.POST.get("quantity"))
         user.portfolio.cash += int(request.POST.get("quantity")) * float(symbol["price"])
         stock.save(update_fields=["quantity"])
-         user.portfolio.save(update_fields=["cash"])
+        user.portfolio.save(update_fields=["cash"])
     else:
         return JsonResponse({"error": "User does not own any shares of that stock"})
 
@@ -169,7 +169,7 @@ def sell(request):
     )
     purchase.save()
 
-    eturn JsonResponse({
+    return JsonResponse({
         "symbol": request.POST.get("symbol").upper(),
         "quantity": 0 - int(request.POST.get("quantity")),
         "timestamp": purchase.timestamp,
