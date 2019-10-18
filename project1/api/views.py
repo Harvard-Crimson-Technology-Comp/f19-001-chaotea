@@ -6,11 +6,16 @@ from django.http import HttpResponseNotFound, JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 
-from project1.api.models import UserModel, PurchaseModel, StockModel
+import bcrypt
+
+from project1.api.models import UserModel, PurchaseModel, StockModel, PortfolioModel
 
 from alpha_vantage.timeseries import TimeSeries
 
-# Don't put this here in real code! you are welcome to use this key if you would like
+from datetime import datetime
+from time import sleep
+
+# don't put this here in real code! you are welcome to use this key if you would like
 av_api_key = "B6Z376P6CGR0XAL5"
 ts = TimeSeries(key=av_api_key)
 
