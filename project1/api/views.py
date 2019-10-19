@@ -42,11 +42,15 @@ def register(request):
     if len(users) > 0:
         return JsonResponse({"error": "User with that username already exists"})
     
+
+    new_portfolio = PortfolioModel(cash=0)
+
     new_user = UserModel(
         username=request.POST.get("username"),
         first_name=request.POST.get("first_name"),
         last_name=request.POST.get("last_name"),
-        password=hash(request.POST.get("password"))
+        password=hash(request.POST.get("password")),
+        portfolio=new_portfolio
     )
     new_user.save()
     
@@ -183,7 +187,7 @@ def sell(request):
 
 @require_http_methods(["GET"])
 @csrf_exempt
-def list(request):
+def api_list(request):
     fields = ["api_token"]
 
     # Check they provided all the right data

@@ -10,7 +10,23 @@ const imageStyle = {
   borderRadius: "12px"
 };
 
-const QUERY = gql``;
+const QUERY = gql`
+query myQuery{
+  users{
+    firstName
+    lastName
+    portfolio{
+      stockmodelSet{
+        symbol
+        quantity
+      }
+    }
+  }
+  stocks{
+    symbol
+    quantity
+  }
+}`;
 
 export function Index() {
   let contents;
@@ -23,25 +39,26 @@ export function Index() {
   else if (error) {
     contents = <p>{error}</p>;
   } else {
+    console.log(data);
+    const { users, stocks } = data;
     contents = (
       <div>
-        <hr></hr>
-        <h1>Hello! Welcome to our Stocks App!</h1>
-        <hr></hr>
-        <p>We've set up some basic skeleton code to get you going!</p>
-        <p>Feel free to look around and get acquainted with the flow of things.</p>
-        <p>In particular, look at the following:</p>
-        <ul>
-          <li><i>routes.tsx</i> - tells React what to do with different requests</li>
-          <li><i>App.js</i> - the main React App - sets up a lot of the stuff we need, like the Router and Apollo</li>
-          <li><i>Base.tsx</i> - the base template for each page, sets up our style and layout</li>
-          <li><i>pages/Index.tsx</i> - this page</li>
-        </ul>
-        <img style={imageStyle} src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Ftr1.cbsistatic.com%2Fhub%2Fi%2F2017%2F07%2F06%2F86b50b09-d769-4e1f-9e57-822da0b86d44%2Fd2d5ab16c8e198e1bfeb79adbd48e25b%2Fapplememes-stock.jpg&f=1&nofb=1"/>
-        <hr></hr>
-        <p>This page should be informational.</p>
-        <p>You can also display stats or things here if you want.</p>
-        <hr></hr>
+        <p>Number of users: {users.length}</p>
+        <p>Number of stocks: {stocks.length}</p>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Stocks</th>
+          </tr>
+          {
+            users.map((user: any, index: number) =>
+              <tr>
+                <td>{user.firstName} {user.lastName}</td>
+                <td>{user.portfolio.stockmodelSet.length}</td>
+              </tr>
+            )
+          }
+        </table>
       </div>
     );
   }

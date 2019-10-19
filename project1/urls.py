@@ -30,7 +30,7 @@ urlpatterns = [
     path('api/buy', api_views.buy), # should allow "buy"
     path('api/sell', api_views.sell), # should allow "sell"
     path('api/list', api_views.api_list), # should allow "list"
-    path('api/register', api_views.register), # should allow "register"
+    path('api/register', csrf_exempt(api_views.register)), # should allow "register"
 
     ### this section redirects control flow to the Web app in Django - will be deprecated!
     path('register', web_views.register),
